@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
-        <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
         <link type="text/css" rel="stylesheet" href="style.css">
         <title>Budgety</title>
     </head>
@@ -35,7 +34,39 @@
                 </div>
             </div>
         </div>
-        <span class="line_drop"></span>
+        <div class="graph_box">
+            <h2>overview</h2>
+            <div class="graph_card">
+
+            </div>
+            <div class="transaction-fields">
+                <h2>Transactions</h2>
+                <div class="fields">
+                    <button class="inc_value">+</button>
+                    <button class="dec_value">-</button>
+                    <span class="inc_check">\income</span>
+                    <form  class="transction-form">
+                        <input type="text" placeholder="Description...">
+                        <input type="text" placeholder="Amount...">
+                        <button class="submit_btn">Add</button>
+                    </form>
+                </div>
+            </div>
+            <div class="transction_history">
+                <h2>History</h2>
+                <ul class="history_list">
+                    <li class="hist-list__item">
+                        <span class="amount_sign"></span>
+                        <div class="desc_time--history">
+                            <span class="hist-desc">Salary</span>
+                            <span class="hist-time">28 feb,2021 at 4:50 AM</span>
+                        </div>
+                        <span class="update_trans--feild">||</span>
+                        <span class="trans_hist--value">$23,300</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
         </div>
 
