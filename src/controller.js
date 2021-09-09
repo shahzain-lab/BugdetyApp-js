@@ -130,9 +130,9 @@ var budgetController = (function() {
 var UIController = (function() {
     var DOMstring = {
         inputType: '.add__type',
-        inputDescription: '.add__description',
-        inputValue: '.add__value',
-        inputBtn: '.add__btn',
+        inputDescription: '.input__description',
+        inputValue: '.input__value',
+        formLabel: '.transction-form',
         incomesContainer: '.income__list',
         expensesContainer: '.expenses__list',
         budgetLabel: '.budget__value',
@@ -141,7 +141,8 @@ var UIController = (function() {
         percentageLabel: '.budget__expenses--percentage',
         container: '.container',
         itemPercLabel: '.item__percentage',
-        dateLabel: '.budget__title--month'
+        dateLabel: '.item-time',
+        decimalAmount: '.decimal-amount'
     };
 
         function nodeListForEach(list, callBack) {
@@ -151,7 +152,7 @@ var UIController = (function() {
                 }
             };
 
-    var formatingNum = function(num, type) {
+    var formatingNum = function(num) {
         var numSplit, type, int, dec
         
         num = Math.abs(num);
@@ -163,9 +164,12 @@ var UIController = (function() {
         if(int.length > 3){
             int = int.substr(0, int.length - 3) + ',' + int.substr(int.length - 3, 3)
         }
-        dec = numSplit[1];
+        dec = numSplit[1]
 
-        return (type === 'exp' ? '-' : '+')+ ' ' + int + '.' + dec;
+      
+        const markup = ` $${int}<span class="decimal-amount">.${dec}</span>`
+        return markup;
+      
     };
 
     return{
@@ -177,23 +181,45 @@ var UIController = (function() {
         }
     },
         addListItem: function(obj, type) {
-          var html, newHtml, element;
+          let html, element;
             //create HTML string placeholder text
              if(type === 'inc'){
                  element = DOMstring.incomesContainer;
 
-                 html = ' <div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div> <div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
-             }else if(type === 'exp'){
+                 html = `
+               <li class="income-list__item" id="income-${obj.id}">
+               <div class="delete_item hidden">$</div>
+               <div class="add_item-wrp ">
+                   <div class="desc_time--history">
+                       <span class="item-desc">${obj.description}</span>
+                       <span class="item-time">28 feb,2021 at 4:50 AM</span>
+                   </div>
+                   <button class="update_trans--feild">||</button>
+               <span class="trans_item--value">+ ${formatingNum(obj.value)}</span>
+       </div>
+           </li>
+               `
+            }
+             if(type === 'exp'){
                 element = DOMstring.expensesContainer;
 
-                 html = ' <div class="item clearfix" id="exp-%id%"> <div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline">X</i></button></div></div></div>'
-             }
-            //replace the HTML placeholder with some actual data
-            newHtml = html.replace('%id%', obj.id);
-            newHtml = newHtml.replace('%description%', obj.description);
-            newHtml = newHtml.replace('%value%', formatingNum(obj.value, type))
-            //insert that data to the DOM
-             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml)
+                html = `
+                <li class="expense-list__item " id="expense-${obj.id}">
+                        <div class="delete_item hidden">$</div>
+                        <div class="add_item-wrp ">
+                            <div class="desc_time--history">
+                                <span class="item-desc">${obj.description}</span>
+                                <span class="item-time">28 feb,2021 at 4:50 AM</span>
+                            </div>
+                        <button class="update_trans--feild">||</button>
+                        <span class="trans_item--value">- ${formatingNum(obj.value)}</span>
+                </div>
+                    </li>
+                `
+            }
+
+            //insert data to the DOM
+             document.querySelector(element).insertAdjacentHTML('beforeend', html)
         },
 
         deleteListItem: function(selectorID) {
@@ -213,16 +239,16 @@ var UIController = (function() {
 
         displayBudget: function(obj) {
             var type;
-            obj.budget > 0 ? type = 'inc' : type = 'exp';
+            obj.budget >= 0 ? type = 'inc' : type = 'exp';
 
-           document.querySelector(DOMstring.budgetLabel).textContent = formatingNum(obj.budget, type);
-           document.querySelector(DOMstring.incomeLabel).textContent = formatingNum(obj.totalInc ,'inc');
-           document.querySelector(DOMstring.expenseLabel).textContent = formatingNum(obj.totalExp, 'exp');
-           if(obj.budget > 0){
-               document.querySelector(DOMstring.percentageLabel).textContent = obj.percentage + '%';
-           }else{
-            document.querySelector(DOMstring.percentageLabel).textContent = '--';
-           }
+           document.querySelector(DOMstring.budgetLabel).innerHTML = `${type === 'exp' ? '-' : '+'}${formatingNum(obj.budget)}`;
+           document.querySelector(DOMstring.incomeLabel).innerHTML = formatingNum(obj.totalInc);
+           document.querySelector(DOMstring.expenseLabel).innerHTML = formatingNum(obj.totalExp);
+        //    if(obj.budget > 0){
+        //        document.querySelector(DOMstring.percentageLabel).textContent = obj.percentage + '%';
+        //    }else{
+        //     document.querySelector(DOMstring.percentageLabel).textContent = '--';
+        //    }
         },
 
         displayPercentage: function(percentage) {
@@ -241,14 +267,15 @@ var UIController = (function() {
         },
 
         displayMonth: function() {
-            var now, month, months, year;
+            // var now, month, months, year;
 
-            now = new Date()
-            months = ['January'," February", "March", "April", "May", "June", "July", "August", "September", "Octobar", "November", "December"];
-            month = now.getMonth();
-            year = now.getFullYear();
-
-            document.querySelector(DOMstring.dateLabel).textContent = months[month] + ' ' + year; 
+            // now = new Date();
+            // months = ['Jan'," Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            // month = now.getMonth();
+            // year = now.getFullYear();
+            // const date = now.getDate();
+            // const timeZone = now.getHours() > 12 ? ' PM' : 'AM'
+            // document.querySelector(DOMstring.dateLabel).textContent = date + ' ' + months[month] + ', ' + year + ' at ' +now.getHours()+":"+now.getMinutes() + timeZone; 
 
         },
 
@@ -283,15 +310,20 @@ var controller = (function(budgetctrl ,UIctrl) {
     //function 1 for event listener
     function setupEventListener() {
     var DOM = UIctrl.getDOMstring();
-    document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
-    document.addEventListener('keypress',function(e) {
-        if(e.keyCode === 13 || e.which === 13){
-            ctrlAddItem()
-        };
-    })
-    document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
+    console.log("function runs");
+    document.querySelector(DOM.formLabel).addEventListener('submit', e => {
+        e.preventDefault();
+        ctrlAddItem()
+    } )
+    // document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+    // document.addEventListener('keypress',function(e) {
+    //     if(e.keyCode === 13 || e.which === 13){
+    //         ctrlAddItem()
+    //     };
+    // })
+    // document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
 
-    document.querySelector(DOM.inputType).addEventListener('change', UIctrl.changeInput)
+    // document.querySelector(DOM.inputType).addEventListener('change', UIctrl.changeInput)
     }
     //function 2 for calculate budget
     function updateBudget() {
@@ -315,14 +347,15 @@ var controller = (function(budgetctrl ,UIctrl) {
 
     //function 4 for getting input 
     function ctrlAddItem() {
-        var input, newItem;        
+        console.log('submitted');  
         //1. get input data
-        input = UIctrl.getInput();
-        if(input.description !== "" && !isNaN(input.value) && input.value > 0){
+        const {type, value, description} = UIctrl.getInput();
+       
+        if(description !== "" && !isNaN(value) && value > 0){
         //2. Add item to the budget controller
-        newItem = budgetctrl.addItem(input.type, input.description, input.value);
+        const newItem = budgetctrl.addItem(type, description, value);
         //3. Add the item to the UI
-        UIctrl.addListItem(newItem ,input.type);
+        UIctrl.addListItem(newItem ,type);
         //4. clear the input feild
         UIctrl.clearField();
         //5. update the budget
@@ -355,11 +388,11 @@ var controller = (function(budgetctrl ,UIctrl) {
     return{
         init: function() {
             console.log('Application has started');
-            UIctrl.displayMonth();
+            // UIctrl.displayMonth();
             UIctrl.displayBudget({
-                budget: 0,
-                totalInc: 0,
-                totalExp: 0,
+                budget: -23.33,
+                totalInc: 2130.34,
+                totalExp: 324.23,
                 percentage: 0
             })
             setupEventListener();
