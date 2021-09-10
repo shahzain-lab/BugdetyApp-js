@@ -356,12 +356,15 @@ linear-gradient(
   width: 100%;
 }
 
-.amount_sign{
-  width: 50%;
-  height: 5rem;
-  border: 3px solid white;
-  margin: 0px 5px;
-  border-radius: 50%;
+.values{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item__percentage{
+  font-size: 1.5rem;
+  color: var(--color-tertiary-darker);
 }
 
 .desc_time--history{

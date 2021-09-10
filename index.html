@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
-        <link type="text/css" rel="stylesheet" href="style.css">
+        <link type="text/css" rel="stylesheet" href="./src/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <title>Budgety</title>
     </head>
@@ -30,7 +30,8 @@
                     <h3><i class="fas fa-sort-amount-down-alt fa-2x"></i></h3>
                     <div class="exp-amt">
                         <h2 class="budget__expenses--value">$14,500<span class="decimal-amount">.45</span></h2>
-                        <p>#*&</p>
+                        
+                        <div class="budget__expenses--percentage">45%</div>
                     </div>
                 </div>
             </div>
@@ -61,7 +62,7 @@
                         <!-- <h3 class="fullDate">29 june, 2021</h3> -->
                     <div class="income__list">
                         <h2>Income</h2>
-                        <li class="income-list__item" id="income-0">
+                        <!-- <li class="income-list__item" id="income-0">
                             <div class="delete_item hidden">$</div>
                             <div class="add_item-wrp ">
                               
@@ -92,12 +93,12 @@
                             <span class="trans_item--value">$23,300</span>
                         
                     </div>
-                        </li>
+                        </li> -->
                     </div>
                     <div class="expenses__list">
                         <h2>Expense</h2>
                     
-                    <li class="expense-list__item " id="expense-0">
+                    <!-- <li class="expense-list__item " id="expense-0">
                         <div class="delete_item hidden">$</div>
                         <div class="add_item-wrp ">
                           
@@ -128,7 +129,7 @@
                         <span class="trans_item--value">$23,300</span>
                     
                 </div>
-                    </li>
+                    </li> -->
                    </div>
             </ul>
         </div>
@@ -245,6 +246,6 @@
             
         </div>
         -->
-        <script src="controller.js"></script>
+        <script type="module" src="./src/js/controller.js"></script>
     </body>
 </html>
