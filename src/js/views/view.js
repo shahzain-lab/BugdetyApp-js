@@ -29,12 +29,7 @@ export default class View{
     
         
            
-            
-    
-            deleteListItem(selectorID) {
-                var ele = document.getElementById(selectorID);
-                ele.parentNode.removeChild(ele);
-            }
+          
     
             clearField() {
                 

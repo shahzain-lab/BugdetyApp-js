@@ -342,15 +342,11 @@ linear-gradient(
     color: var(--color-heading);
     border-bottom: 4px inset #3d3d3d;
     transition: .2s all;
-    /* margin: 1rem; */
-}
-
-.add_item-wrp{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100%;
-} 
+}
+
 
 .desc-time__wrapper{
   width: 100%;
@@ -360,6 +356,26 @@ linear-gradient(
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.item__delete--btn{
+  border: none;
+  background: none;
+  visibility: hidden;
+  color: var(--color-tertiary-darker);
+}
+
+.fa-trash-alt{
+  cursor: pointer;
+}
+
+.income-list__item:hover .item__delete--btn{
+  visibility: visible;
+
+}
+
+.expense-list__item:hover .item__delete--btn{
+  visibility: visible;
 }
 
 .item__percentage{
@@ -402,17 +418,6 @@ linear-gradient(
   font-size: 2.4rem;
 }
 
-.delete_item{
-  transition: .2s all;
- position: relative;
- width: 100%;display: flex;
- justify-content: center;
- align-items: center;
-height: 4.5rem;
- background-color: #787878;
- color: var(--color-heading); 
- font-size: 2rem;
-}
 
 .hidden{
   display: none;

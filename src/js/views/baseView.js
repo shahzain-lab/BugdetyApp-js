@@ -9,8 +9,9 @@ export const DOMstring = {
     incomeLabel: '.budget__income--value',
     expenseLabel: '.budget__expenses--value',
     percentageLabel: '.budget__expenses--percentage',
-    container: '.container',
+    container: '.history_list',
     itemPercLabel: '.item__percentage',
     dateLabel: '.item-time',
-    decimalAmount: '.decimal-amount'
+    decimalAmount: '.decimal-amount',
+    deleteItemLabel: '.item__delete--btn'
 };

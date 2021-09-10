@@ -7,7 +7,7 @@
     this.percentage = -1;
 }
 calcPercentage(totalIncome) {
-     if(totalIncome > 0){
+     if(totalIncome > this.value){
          this.percentage = Math.round((this.value / totalIncome) * 100);
      }else{
          this.percentage = -1;
@@ -71,16 +71,16 @@ export const state = {
          }
      
      
-         function deleteItem(type, id) {
-             var ids , index;
+        export function deleteItem(type, id) {
+             
      
-             ids = data.allItems[type].map(function(curr) {
+             const ids = state.allItems[type].map(function(curr) {
                  return curr.id
              })
-             index = ids.indexOf(id);
+             const index = ids.indexOf(id);
      
              if(index !== -1){
-                 data.allItems[type].splice(index, 1);
+                 state.allItems[type].splice(index, 1);
              }
          }
      
