@@ -48,19 +48,20 @@
                         <option class="add__inc-value" value="inc" selected>+</option>
                         <option class="add__exp-value" value="exp">-</option>
                     </select>
-                    <span class="inc_check">\income</span>
+                    <span class=" inc_check"><i class="fas fa-sort-amount-up-alt"></i> income</span>
+                    <span class="hidden exp_check"><i class="fas fa-sort-amount-down-alt"></i> expense</span>
                     <form  class="transction-form">
                         <input type="text" class="input__description" placeholder="Description...">
                         <input type="number" class="input__value" placeholder="Amount...">
-                        <button class="submit_btn"><i class="fa fa-check" aria-hidden="true"></i></button>
+                        <button class="submit_btn inc__sub-btn"><i class="fa fa-check" aria-hidden="true"></i></button>
                     </form>
                 </div>
             </div>
             <div class="transction_history">
                 <h2>History</h2>
                 <ul class="history_list">
-                    <div class="income__list">
-                        <h2>Income</h2>
+                    <h2>Income</h2> 
+                    <div class="inc__list">
                         <!-- <li class="income-list__item" id="income-0">
                             
                            
@@ -71,7 +72,7 @@
                                 </div>
                             
                             
-                                <button class="update_trans--feild">||</button>
+                                <button class="update_trans--feild"><i class="fas fa-pencil-alt"></i></button>
                             <span class="trans_item--value">$23,300</span>
                             <div class="item__delete">
                                 <button class="item__delete--btn"><i class="fas fa-trash-alt fa-2x"></i></button>
@@ -98,8 +99,8 @@
                     </div>
                         </li> -->
                     </div>
-                    <div class="expenses__list">
-                        <h2>Expense</h2>
+                    <h2>Expense</h2> 
+                    <div class="exp__list">
                     
                      <!-- <li class="expense-list__item " id="expense-0">
                         
@@ -254,6 +255,14 @@
             
         </div>
         -->
+        <div class="overlay hidden"></div>
+            <div class="update--window hidden">
+                <form  class="update__value-form">
+                    <input type="text" class="update__description" placeholder="Description...">
+                    <input type="number" class="update__value" placeholder="Amount...">
+                    <button class="update--value_btn "><i class="fa fa-check" aria-hidden="true"></i></button>                </form>
+            <!-- </div> -->
+        </div>
         <script type="module" src="./src/js/controller.js"></script>
     </body>
 </html>

@@ -105,6 +105,25 @@ export const state = {
                  curr.calcPercentage(state.totals.inc);
              })
          }
+
+         export function updateItem(type, id) {
+            const ids = state.allItems[type].map(function(curr) {
+                return curr.id
+            })
+            const index = ids.indexOf(id);
+            if(index === -1) return;
+
+             const description = state.allItems[type][index].description;
+             const value = state.allItems[type][index].value;
+             return{
+                 index,
+                 description,
+                 value
+             }
+         }
+
+         export function updateState(desc, val, id, type) {
+         }
      
       export  function getPercentages() {
              var allPerc = state.allItems.exp.map(function(curr) {

@@ -1,12 +1,42 @@
 import { DOMstring } from "./baseView";
 
 export default class View{
+
+    addListItem(data, type){
+        this._data = data;
+        this._type = type;
+        this.renderMarkup()
+    }
+
          _nodeListForEach(list, callBack) {
                     
                     for (let i = 0; i < list.length; i++) {
                             callBack(list[i], i)
                     }
                 };
+
+                update(data,type) {
+                    this._data = data;
+                    this._type = type;
+                    const newMarkup = this._generateMarkup(this._type);
+                    const newDom = document.createRange().createContextualFragment(newMarkup);
+                    const newElement = Array.from(newDom.querySelectorAll('*'));
+                    const curElement = Array.from(this._parentElement.querySelectorAll('*'));
+                    
+                      console.log(`""${newDom}""`, curElement);
+                    newElement.forEach((newEl, i) => {
+                      const curEl = curElement[i];
+
+                      if(!newEl.isEqualNode(curEl)){
+                        curEl.textContent = newEl.textContent;
+                      }
+                    //   if(newEl.isEqualNode(curEl)){
+                    //     Array.from(newEl.attributes).forEach(attr => {
+                    //       curEl.setAttribute(attr.name, attr.value);
+                    //     })
+                      //}
+                    })
+                }
     
          _formatingNum (num) {
             
@@ -20,30 +50,11 @@ export default class View{
                 int = `${int.substr(0, int.length - 3)},${int.substr(int.length - 3, 3)}`;
             }
             const dec = numSplit[1]
-    
           
             return ` $${int}<span class="decimal-amount">.${dec}</span>`
-            
-          
-        };
-    
         
-           
-          
-    
-            clearField() {
-                
-             const feild = document.querySelectorAll(DOMstring.inputDescription + ',' + DOMstring.inputValue);
-             const feildArr = Array.from(feild);
-              feildArr.forEach(function(element) {
-                 element.value = "";
-               });
-              feildArr[0].focus()
-            }
-    
-    
-            
-    
+         };
+        
             displayMonth() {
                 // var now, month, months, year;
     
@@ -55,25 +66,6 @@ export default class View{
                 // const timeZone = now.getHours() > 12 ? ' PM' : 'AM'
                 // document.querySelector(DOMstring.dateLabel).textContent = date + ' ' + months[month] + ', ' + year + ' at ' +now.getHours()+":"+now.getMinutes() + timeZone; 
     
-            }
-    
-            changeInput() {
-               var feilds;
-    
-               feilds = document.querySelectorAll(
-                    DOMstring.inputType + ',' +
-                    DOMstring.inputValue + ',' +
-                    DOMstring.inputDescription
-                );
-    
-                this._nodeListForEach(feilds, function(curr) {
-                    curr.classList.toggle('red-focus')
-                })
-                document.querySelector(DOMstring.inputType).classList.toggle('red')
-            }
-    
-            getDOMstring() {
-                return DOMstring
             }
     
         }

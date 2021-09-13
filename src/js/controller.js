@@ -3,18 +3,15 @@ import * as model from './model';
 import addItemsView from "./views/addItemsView";
 import budgetView from "./views/budgetView";
 import delItemView from "./views/deleteItemView";
+import updateItemView from "./views/updateItemView";
 
 
 class Controller{
+    #NewItemID;
+    #newItemType
 
     constructor() {
         this.#init()
-    }
-
-    #setupEventListener() {
-    // var DOM = UIctrl.getDOMstring();
-
-    // document.querySelector(DOM.inputType).addEventListener('change', UIctrl.changeInput)
     }
     
     #updateBudget() {
@@ -38,7 +35,6 @@ class Controller{
 
     //function 4 for getting input 
     #ctrlAddItem(getInput) {
-
         //1. get input data
         const {type, value, description} = getInput();
        
@@ -47,8 +43,6 @@ class Controller{
         const newItem = model.addItem(type, description, value);
         //3. Add the item to the UI
         addItemsView.addListItem(newItem ,type);
-        //4. clear the input feild
-        fieldsView.clearField();
         //5. update the budget
         this.#updateBudget()
         //6. update the percentage
@@ -63,7 +57,6 @@ class Controller{
         const ID = parseInt(num);
 
         //1. Delete th item from data structure
-        console.log(type,num);
         model.deleteItem(type, ID);
         //2. Delete the item from th UI
         delItemView.deleteListItem(itemID);
@@ -72,6 +65,24 @@ class Controller{
         //4. update the percentage
         this.#updatePercentage()
         
+    }
+
+    #ctrlUpdateItem(itemID) {
+        if(!itemID) return;
+        const [type, num] = itemID.split('-');
+        this.#newItemType = type
+        const ID = parseInt(num);
+
+        //1. update th item in data structure
+        const item = model.updateItem(this.#newItemType, ID);
+        
+        //render obj
+        updateItemView.addListItem(item,this.#newItemType);
+
+    }
+
+    #ctrlUpdateForm(description, value,id) {
+        addItemsView.update({description, value,id}, this.#newItemType);
     }
 
             #init() {
@@ -83,8 +94,11 @@ class Controller{
                 totalExp: 0,
                 percentage: 0
             })
+            fieldsView.addChangeTypeHandler();
+            updateItemView.addUpdateItemHandler(this.#ctrlUpdateItem.bind(this));
             fieldsView.addSubmitHandler(this.#ctrlAddItem.bind(this));
-            delItemView.addDeleteHandler(this.#ctrlDeleteItem.bind(this))
+            delItemView.addDeleteHandler(this.#ctrlDeleteItem.bind(this));
+            updateItemView.addUpdateFormHandler(this.#ctrlUpdateForm.bind(this))
             }
         }
 

@@ -3,8 +3,8 @@ export const DOMstring = {
     inputDescription: '.input__description',
     inputValue: '.input__value',
     formLabel: '.transction-form',
-    incomesContainer: '.income__list',
-    expensesContainer: '.expenses__list',
+    incomesContainer: '.inc__list',
+    expensesContainer: '.exp__list',
     budgetLabel: '.budget__value',
     incomeLabel: '.budget__income--value',
     expenseLabel: '.budget__expenses--value',
@@ -13,5 +13,14 @@ export const DOMstring = {
     itemPercLabel: '.item__percentage',
     dateLabel: '.item-time',
     decimalAmount: '.decimal-amount',
-    deleteItemLabel: '.item__delete--btn'
+    deleteItemLabel: '.item__delete--btn',
+    incTypeLabel: '.inc_check',
+    expTypeLabel: '.exp_check',
+    submitBTN: '.submit_btn',
+    updateItemBtn: '.update_trans--feild',
+    updateForm: '.update__value-form',
+    updateInpDesc: '.update__description',
+    updateInpValue: '.update__value',
+    overlay: '.overlay',
+    windowBox: '.update--window'
 };
