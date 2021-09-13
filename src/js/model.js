@@ -106,24 +106,24 @@ export const state = {
              })
          }
 
-         export function updateItem(type, id) {
+         export function updateItem(desc, val, id, type) {
             const ids = state.allItems[type].map(function(curr) {
                 return curr.id
             })
             const index = ids.indexOf(id);
             if(index === -1) return;
 
-             const description = state.allItems[type][index].description;
-             const value = state.allItems[type][index].value;
+             const description = state.allItems[type][index].description = desc;
+             const value = state.allItems[type][index].value = val;
+             console.log(description, value);
              return{
-                 index,
                  description,
-                 value
+                 value,
+                 id
              }
          }
 
-         export function updateState(desc, val, id, type) {
-         }
+         
      
       export  function getPercentages() {
              var allPerc = state.allItems.exp.map(function(curr) {

@@ -67,22 +67,34 @@ class Controller{
         
     }
 
-    #ctrlUpdateItem(itemID) {
+    // #ctrlUpdateItem(itemID) {
+    //     if(!itemID) return;
+    //     const [type, num] = itemID.split('-');
+    //     this.#newItemType = type
+    //     const ID = parseInt(num);
+
+    //     //1. update th item in data structure
+    //     const item = model.updateItem(this.#newItemType, ID);
+        
+    //     //render obj
+    //     updateItemView.addListItem(item,this.#newItemType);
+
+    // }
+
+    #ctrlUpdateForm(description, value, itemID) {
+        
         if(!itemID) return;
         const [type, num] = itemID.split('-');
-        this.#newItemType = type
-        const ID = parseInt(num);
+        const id = parseInt(num);
 
-        //1. update th item in data structure
-        const item = model.updateItem(this.#newItemType, ID);
+        const updItem = model.updateItem(description, value, id, type);
         
-        //render obj
-        updateItemView.addListItem(item,this.#newItemType);
-
-    }
-
-    #ctrlUpdateForm(description, value,id) {
-        addItemsView.update({description, value,id}, this.#newItemType);
+        addItemsView.update(updItem, type);
+        console.log(model.state);
+        //3. update the UI
+        this.#updateBudget();
+        //4. update the percentage
+        // this.#updatePercentage()
     }
 
             #init() {
@@ -95,7 +107,7 @@ class Controller{
                 percentage: 0
             })
             fieldsView.addChangeTypeHandler();
-            updateItemView.addUpdateItemHandler(this.#ctrlUpdateItem.bind(this));
+            updateItemView.addUpdateItemHandler();
             fieldsView.addSubmitHandler(this.#ctrlAddItem.bind(this));
             delItemView.addDeleteHandler(this.#ctrlDeleteItem.bind(this));
             updateItemView.addUpdateFormHandler(this.#ctrlUpdateForm.bind(this))

@@ -18,23 +18,17 @@ export default class View{
                 update(data,type) {
                     this._data = data;
                     this._type = type;
-                    const newMarkup = this._generateMarkup(this._type);
+                    console.log(this._data,this._type);
+                    const newMarkup = this._generateMarkup();
                     const newDom = document.createRange().createContextualFragment(newMarkup);
                     const newElement = Array.from(newDom.querySelectorAll('*'));
-                    const curElement = Array.from(this._parentElement.querySelectorAll('*'));
+                    const curElement = Array.from(this._parentElement.querySelectorAll('li'));
                     
-                      console.log(`""${newDom}""`, curElement);
-                    newElement.forEach((newEl, i) => {
-                      const curEl = curElement[i];
-
-                      if(!newEl.isEqualNode(curEl)){
-                        curEl.textContent = newEl.textContent;
+                   
+                    curElement.forEach((curEl) => {
+                      if(curEl.id === newElement[0].id){
+                        curEl.innerHTML = newElement[0].innerHTML;
                       }
-                    //   if(newEl.isEqualNode(curEl)){
-                    //     Array.from(newEl.attributes).forEach(attr => {
-                    //       curEl.setAttribute(attr.name, attr.value);
-                    //     })
-                      //}
                     })
                 }
     
