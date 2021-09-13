@@ -3,7 +3,7 @@ import View from "./view";
 
 
 class AddItemsView extends View{
-    
+
     renderMarkup() {
         let html;
           //create HTML string placeholder text
@@ -17,12 +17,11 @@ class AddItemsView extends View{
           } 
 
           //insert data to the DOM
-           this._parentElement.insertAdjacentHTML('beforeend', html)
+           this._parentElement.insertAdjacentHTML('beforeend', html);
       }
 
       _generateMarkup() {
           return`
-          
           <li class="${this._type}-list__item " id="${this._type}-${this._data.id}">
           <div class="desc_time--history">
               <span class="item-desc">${this._data.description}</span>

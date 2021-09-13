@@ -18,18 +18,24 @@ export default class View{
                 update(data,type) {
                     this._data = data;
                     this._type = type;
-                    console.log(this._data,this._type);
                     const newMarkup = this._generateMarkup();
                     const newDom = document.createRange().createContextualFragment(newMarkup);
                     const newElement = Array.from(newDom.querySelectorAll('*'));
-                    const curElement = Array.from(this._parentElement.querySelectorAll('li'));
+                    const curIncome = Array.from(document.querySelector(DOMstring.incomesContainer).querySelectorAll('li'));
+                    const curExpense = Array.from(document.querySelector(DOMstring.expensesContainer).querySelectorAll('li'));
                     
                    
-                    curElement.forEach((curEl) => {
+                    curIncome.forEach((curEl) => {
                       if(curEl.id === newElement[0].id){
                         curEl.innerHTML = newElement[0].innerHTML;
                       }
-                    })
+                    });
+
+                    curExpense.forEach((curEl) => {
+                      if(curEl.id === newElement[0].id){
+                        curEl.innerHTML = newElement[0].innerHTML;
+                      }
+                    });
                 }
     
          _formatingNum (num) {

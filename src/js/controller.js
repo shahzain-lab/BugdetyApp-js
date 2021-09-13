@@ -94,7 +94,7 @@ class Controller{
         //3. update the UI
         this.#updateBudget();
         //4. update the percentage
-        // this.#updatePercentage()
+        this.#updatePercentage()
     }
 
             #init() {
