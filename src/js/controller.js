@@ -4,6 +4,7 @@ import addItemsView from "./views/addItemsView";
 import budgetView from "./views/budgetView";
 import delItemView from "./views/deleteItemView";
 import updateItemView from "./views/updateItemView";
+import bookmarkView from "./views/BookmarksView";
 
 
 class Controller{
@@ -67,19 +68,7 @@ class Controller{
         
     }
 
-    // #ctrlUpdateItem(itemID) {
-    //     if(!itemID) return;
-    //     const [type, num] = itemID.split('-');
-    //     this.#newItemType = type
-    //     const ID = parseInt(num);
-
-    //     //1. update th item in data structure
-    //     const item = model.updateItem(this.#newItemType, ID);
-        
-    //     //render obj
-    //     updateItemView.addListItem(item,this.#newItemType);
-
-    // }
+    
 
     #ctrlUpdateForm(description, value, itemID) {
         
@@ -90,7 +79,16 @@ class Controller{
         const updItem = model.updateItem(description, value, id, type);
         
         addItemsView.update(updItem, type);
-        console.log(model.state);
+        //3. update the UI
+        this.#updateBudget();
+        //4. update the percentage
+        this.#updatePercentage()
+    }
+
+    #controlBookmarks() {
+        const {exp, inc} = model.state.allItems;
+        bookmarkView.displayBookmark(exp, inc);
+
         //3. update the UI
         this.#updateBudget();
         //4. update the percentage
@@ -109,6 +107,7 @@ class Controller{
             fieldsView.addChangeTypeHandler();
             updateItemView.addUpdateItemHandler();
             fieldsView.addSubmitHandler(this.#ctrlAddItem.bind(this));
+            bookmarkView.addLoadHandler(this.#controlBookmarks.bind(this))
             delItemView.addDeleteHandler(this.#ctrlDeleteItem.bind(this));
             updateItemView.addUpdateFormHandler(this.#ctrlUpdateForm.bind(this))
             }

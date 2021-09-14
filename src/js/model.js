@@ -6,17 +6,7 @@
     this.value = value;
     this.percentage = -1;
 }
-calcPercentage(totalIncome) {
-     if(totalIncome > this.value){
-         this.percentage = Math.round((this.value / totalIncome) * 100);
-     }else{
-         this.percentage = -1;
-     }
-}
 
-getPercentage() {
-     return this.percentage;
-}
 }
 
 
@@ -38,7 +28,11 @@ export const state = {
         inc: 0
     },
     budget: 0,
-    percentage: -1
+    percentage: -1,
+    bookmarks: {
+        exp: [],
+        inc: []
+    }
 }
 
 
@@ -50,6 +44,9 @@ export const state = {
 
              state.totals[type] = total;
          }
+     function persistBookmark() {
+            localStorage.setItem('bookmarks', JSON.stringify(state.allItems))
+        }
      
           
         export function addItem(type ,des, val) {
@@ -66,11 +63,14 @@ export const state = {
              }
      
              itemArr.push(newItem);
+            //  bookmarkArr.push(newItem);
+            //  console.log(state.bookmarks);
+             persistBookmark();
+             console.log(itemArr);
              return newItem;
              
          }
-     
-     
+         
         export function deleteItem(type, id) {
              
      
@@ -81,9 +81,11 @@ export const state = {
      
              if(index !== -1){
                  state.allItems[type].splice(index, 1);
+                 persistBookmark();
              }
          }
      
+         
      
          export function calculateBudget() {
              //calculate the total income and expense
@@ -98,11 +100,18 @@ export const state = {
                  state.percentage = -1
              }
          }
-     
+         
+         function calcPercentage(totalIncome, curr) {
+            if(totalIncome > curr.value){
+                curr.percentage = Math.round((curr.value / totalIncome) * 100);
+            }else{
+                curr.percentage = -1;
+            }
+       }
      
         export function calculatePercentages() {
              state.allItems.exp.forEach(function(curr) {
-                 curr.calcPercentage(state.totals.inc);
+                 calcPercentage(state.totals.inc, curr);
              })
          }
 
@@ -127,7 +136,7 @@ export const state = {
      
       export  function getPercentages() {
              var allPerc = state.allItems.exp.map(function(curr) {
-                 return curr.getPercentage()
+                 return curr.percentage
              })
              return allPerc;
           }
@@ -142,3 +151,12 @@ export const state = {
          }
         
 
+         function init() {
+            const storage = localStorage.getItem('bookmarks');
+        
+            if(!storage) return;
+            state.allItems = JSON.parse(storage);
+            
+        }
+        
+        init()
