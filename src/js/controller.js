@@ -8,8 +8,6 @@ import bookmarkView from "./views/BookmarksView";
 
 
 class Controller{
-    #NewItemID;
-    #newItemType
 
     constructor() {
         this.#init()
@@ -76,9 +74,15 @@ class Controller{
         const [type, num] = itemID.split('-');
         const id = parseInt(num);
 
-        const updItem = model.updateItem(description, value, id, type);
+        const updtItem = {
+            description,
+             value,
+              id,
+        }
         
-        addItemsView.update(updItem, type);
+        model.updateItem(updtItem, type);
+        
+        addItemsView.update(updtItem, type);
         //3. update the UI
         this.#updateBudget();
         //4. update the percentage
@@ -97,7 +101,6 @@ class Controller{
 
             #init() {
             console.log('Application has started');
-            // UIctrl.displayMonth();
             budgetView.displayBudget({
                 budget: 0,
                 totalInc: 0,
@@ -107,8 +110,8 @@ class Controller{
             fieldsView.addChangeTypeHandler();
             updateItemView.addUpdateItemHandler();
             fieldsView.addSubmitHandler(this.#ctrlAddItem.bind(this));
-            bookmarkView.addLoadHandler(this.#controlBookmarks.bind(this))
             delItemView.addDeleteHandler(this.#ctrlDeleteItem.bind(this));
+            bookmarkView.addLoadHandler(this.#controlBookmarks.bind(this))
             updateItemView.addUpdateFormHandler(this.#ctrlUpdateForm.bind(this))
             }
         }

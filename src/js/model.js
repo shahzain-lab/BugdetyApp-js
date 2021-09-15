@@ -1,23 +1,26 @@
 
-    class Expenses{
+class Transaction{
     constructor(id ,description, value) {
-    this.id = id;
-    this.description = description;
-    this.value = value;
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    }
+}
+
+class Expenses extends Transaction{
+    constructor(id ,description, value) {
+    super(id, description, value)
     this.percentage = -1;
+ }
 }
-
-}
-
-
-class Incomes{
+class Incomes extends Transaction{
      constructor(id ,description, value) {
-    this.id = id;
-    this.description = description;
-    this.value = value;
-}
+        super(id, description, value)
+ }
 }
 
+
+// Global App's state
 export const state = {
     allItems: {
         exp: [],
@@ -29,10 +32,6 @@ export const state = {
     },
     budget: 0,
     percentage: -1,
-    bookmarks: {
-        exp: [],
-        inc: []
-    }
 }
 
 
@@ -44,7 +43,8 @@ export const state = {
 
              state.totals[type] = total;
          }
-     function persistBookmark() {
+       
+         function persistBookmark() {
             localStorage.setItem('bookmarks', JSON.stringify(state.allItems))
         }
      
@@ -52,28 +52,26 @@ export const state = {
         export function addItem(type ,des, val) {
              let newItem, ID;
              const itemArr = state.allItems[type];
-     
+    
+             // generate ID
              itemArr.length > 0 ? ID = itemArr[itemArr.length - 1].id + 1 : ID = 0;
-     
+            
+             // create object instance
              if(type === 'exp'){
                newItem =  new Expenses(ID, des, val);
              }
              if(type === 'inc'){
                  newItem = new Incomes(ID ,des ,val);
              }
-     
+
              itemArr.push(newItem);
-            //  bookmarkArr.push(newItem);
-            //  console.log(state.bookmarks);
+             // store to bookmark
              persistBookmark();
-             console.log(itemArr);
+
              return newItem;
-             
          }
          
         export function deleteItem(type, id) {
-             
-     
              const ids = state.allItems[type].map(function(curr) {
                  return curr.id
              })
@@ -81,7 +79,8 @@ export const state = {
      
              if(index !== -1){
                  state.allItems[type].splice(index, 1);
-                 persistBookmark();
+                  // store to bookmark
+                persistBookmark();
              }
          }
      
@@ -115,27 +114,28 @@ export const state = {
              })
          }
 
-         export function updateItem(desc, val, id, type) {
+         export function updateItem(newItem, type) {
+             const {description, value, id} = newItem;
+
             const ids = state.allItems[type].map(function(curr) {
                 return curr.id
             })
+
             const index = ids.indexOf(id);
             if(index === -1) return;
 
-             const description = state.allItems[type][index].description = desc;
-             const value = state.allItems[type][index].value = val;
-             console.log(description, value);
-             return{
-                 description,
-                 value,
-                 id
-             }
+             state.allItems[type][index].description = description;
+             state.allItems[type][index].value = value;
+              // store to bookmark
+             persistBookmark()
          }
+
+         
 
          
      
       export  function getPercentages() {
-             var allPerc = state.allItems.exp.map(function(curr) {
+             const allPerc = state.allItems.exp.map(function(curr) {
                  return curr.percentage
              })
              return allPerc;
