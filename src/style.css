@@ -16,6 +16,7 @@
     --color-secondary-opacity: #ffcd0331;
     --color-tertiary-opacity: #ff58602d;
     --color-paragraph: #222121;
+    --color-decimal: #777676;
     --color-heading: #e2dede;
     --gradient-primary: linear-gradient(to top left, #39b385, #9be15d);
     --gradient-secondary: linear-gradient(to top left, #ffb003, #ffcb03);
@@ -109,7 +110,7 @@
   /* //GENERAL ELEMENTS// */
 
   .container{
-      height: 200vh;
+      min-height: 100vh;
       width: 100%;
       display: flex;
       justify-content: center;
@@ -117,43 +118,39 @@
       background-color: black;
   }
 
-  /* .sidebar{
-      width: 25%;
-      height: 100%;
-  } */
+  
 
   .main{
     padding:0 4%;
-      width: 120rem;
-      min-height: 110rem;
-      /* max-height: 200rem; */
+      width: 85%;
+      min-height: 95vh;
+      border-radius: 2rem;
       background: linear-gradient(0deg, rgba(27,26,26,1) 25%, rgba(57,61,59,1) 93%);
   }
 
   .balance{
-      padding-top: 2%;
-      height: 18%;
+      padding: 2%;
   }
 
   .balance p{
-      font-size: 2rem;
-      color: var(--color-paragraph);
+      font-size: 1.2rem;
+      color: var(--color-heading);
   }
 
   .balance h1{
-      font-size: 4rem;
+      font-size: 2rem;
       padding-left: 2%;
+      padding: 1rem 0;
       color: var(--color-heading);
   }
 
   .decimal-amount{
-      font-size: 2rem;
-      color: var(--color-paragraph);
+      font-size: 1.2rem;
+      color: var(--color-decimal);
   }
 
   .summary{
       width: 100%;
-      height: 25%;
   }
 
   .summary h2{
@@ -163,88 +160,80 @@
 
   .inc-exp__cards{
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       padding: 2% 5%;
-      height: 100%;
   }
 
   .inc-card, .exp-card{
-      width: 40%;
+      width: 30%;
       height: 100%;
-      border-radius: 2rem;
+      padding: .5rem;
       display: block;
-      box-shadow: 2px 7px 54px -7px rgba(0,0,0,0.93);
--webkit-box-shadow: 2px 7px 54px -7px rgba(0,0,0,0.93);
--moz-box-shadow: 2px 7px 54px -7px rgba(0,0,0,0.93);
-    background: linear-gradient(0deg, rgba(246,176,12,1) 17%, rgba(246,112,9,1) 74%);
+      border-style: solid;
+       box-shadow: 2px 7px 54px -7px rgba(0,0,0,0.93);
   }
 
+.inc-card{
+    border-image: 
+    linear-gradient(
+      to bottom, 
+      #4bbb7d, 
+      rgba(0, 0, 0, 0)
+    ) 1 100%;
+  }
+
+.exp-card{
+    border-image: 
+    linear-gradient(
+      to bottom, 
+      red, 
+      rgba(0, 0, 0, 0)
+    ) 1 100%;
+}
+
+.budget__expenses--percentage{
+  color: #fd424b;
+}
+
   .inc-card h3, .exp-card h3{
-      font-size: 3rem;
+      font-size: 2rem;
       text-align: center;
       color: var(--color-heading);
-      height: 40%;
   }
 
   .inc-amt, .exp-amt{
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 2rem;
-      font-size: 3rem;
+      font-size: 1.5rem;
   }
 
   .inc-amt p, .exp-amt p{
-    padding: 2rem;
-    font-size: 3rem;
+    font-size: 1.5rem;
 
   }
   .inc-amt h2, .exp-amt h2{
-    padding: 2rem;
-    font-size: 3rem;
+    font-size: 2rem;
 
   }
 
-.graph_box{
-    height: 30%;
-}
-
-.graph_box h2{
-    color: var(--color-heading);
-    font-size: 2rem;
-    padding:2rem 0 ;
-
-}
-
-.graph_card{
-    width: 100%;
-    height: 80%;
-    border-radius: 2rem;
-    box-shadow: -3px 6px 21px 2px rgba(0,0,0,0.93);
--webkit-box-shadow: -3px 6px 21px 2px rgba(0,0,0,0.93);
--moz-box-shadow: -3px 6px 21px 2px rgba(0,0,0,0.93);
-
-border-style: solid;
-border-image: 
-linear-gradient(
-  to bottom, 
-  red, 
-  rgba(0, 0, 0, 0)
-) 1 100%;
-}
 
 
 .transaction-fields{
+  color: var(--color-heading);
     width: 100%;
+    margin: 2%;
 }
+
 
 .fields{
     margin-left: 10%;
+    margin: 2%;
 }
 
 .add__type{
-    font-size: 2.5rem;
-    padding: .5rem 1.5rem;
+    font-size: 1.7rem;
+    padding: .5rem 1rem;
     cursor: pointer;
     border-radius: 1rem;
     background-color: var(--color-paragraph);
@@ -256,7 +245,7 @@ linear-gradient(
 
 
 .inc_check,.exp_check{
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-transform: uppercase;
    line-height: 1;
   color: var(--color-heading);
@@ -289,19 +278,22 @@ linear-gradient(
 }
 
 .transction-form input{
-    font-size: 2rem;
+  width: 40%;
+    font-size: 1.4rem;
     outline: none;
     padding: 7px;
     letter-spacing: 2px;
     color: var(--color-heading);
-    background-color: var(--color-paragraph);
+    background-color: rgb(46, 46, 46);
+    border: none;
+    border-bottom: 3px solid #787878;
 }
 
 .submit_btn {
         max-width: 250px;
         padding: 1rem 2rem;
         color: white;
-        font-size: 2rem;
+        font-size: 1.5rem;
         border-width: 3px;
         background-color: var(--color-paragraph);
         cursor: pointer;
@@ -329,33 +321,23 @@ linear-gradient(
 
       .transction_history{
           height: 100%;
+          color: var(--color-heading);
       }
 
-     
-
 .history_list{
-    height: 80%;
-    margin: 0 10%;
-}
-
-.history_list{
-  /* width: 100%; */
+    margin: 2% 8%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   list-style: none;
-}
-/* 
-.fullDate{
-  
   color: var(--color-heading);
-  font-size:2rem;
+}
 
-} */
 
 .exp__list, .inc__list{
   padding-left: 1rem;
   width: 100%;
+  /* min-height: 25rem; */
 }
 
 .inc-list__item{
@@ -367,9 +349,7 @@ linear-gradient(
 }
 
 .inc-list__item, .exp-list__item{
-    height: 20%;
     padding: 2px;
-    width: 100%;
     margin: 8% 0;
     color: var(--color-heading);
     border-bottom: 4px inset #3d3d3d;
@@ -390,10 +370,15 @@ linear-gradient(
   align-items: center;
 }
 
+.fa-pencil-alt{
+  font-size: 1.4rem;
+}
+
 .item__delete--btn{
   border: none;
   background: none;
   visibility: hidden;
+  font-size: 1rem;
   color: var(--color-tertiary-darker);
 }
 
@@ -423,11 +408,11 @@ linear-gradient(
 }
 
 .item-desc{
-  font-size: 2rem;
+  font-size: 1.6rem;
 }
 
 .item-time{
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #787878;
 }
 
@@ -447,8 +432,7 @@ linear-gradient(
 
 
 .trans_item--value{
-  /* margin-left: 10rem; */
-  font-size: 2.4rem;
+  font-size: 1.7rem;
 }
 
 .overlay {
@@ -472,7 +456,6 @@ linear-gradient(
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100rem;
     border-radius: 9px;
     padding: 5rem 6rem;
     box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.25);
